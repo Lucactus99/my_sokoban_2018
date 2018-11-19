@@ -16,9 +16,9 @@
 #include <stdlib.h>
 #include "my.h"
 
-char **transform_2d(char *map, struct stat sb, int lengthx)
+char **transform_2d(char *map, int sb, int lengthx)
 {
-    char **map_2d = malloc(sizeof(char *) * sb.st_size + 3);
+    char **map_2d = malloc(sizeof(char *) * 1000 + 3);
     int i = 0;
     int j = 0;
     int k = 0;
@@ -27,7 +27,7 @@ char **transform_2d(char *map, struct stat sb, int lengthx)
     for (k = 0; map[k] != '\0'; k++) {
         map_2d[k] = malloc(sizeof(char) * lengthx + 1);
     }
-    for (i = 0; i < sb.st_size + 2; i++) {
+    for (i = 0; i < sb + 2; i++) {
         if (j == lengthx + 1) {
             j = 0;
             l++;
@@ -58,24 +58,28 @@ int length_map_x(char *map)
     return (length);
 }
 
-int number_of_answer(char *map)
+int number_of_answer(char **map, int lengthy, int lengthx)
 {
     int number = 0;
 
-    for (int i = 0; map[i] != '\0'; i++) {
-        if (map[i] == 'O')
-            number++;
+    for (int i = 0; i < lengthy; i++) {
+        for (int j = 0; j < lengthx; j++) {
+            if (map[i][j] == 'O')
+                number++;
+        }
     }
     return (number);
 }
 
-int number_of_cases(char *map)
+int number_of_cases(char **map, int lengthy, int lengthx)
 {
     int number = 0;
 
-    for (int i = 0; map[i] != '\0'; i++) {
-        if (map[i] == 'X')
-            number++;
+    for (int i = 0; i < lengthy; i++) {
+        for (int j = 0; j < lengthx; j++) {
+            if (map[i][j] == 'X')
+                number++;
+        }
     }
     return (number);
 }
@@ -122,60 +126,24 @@ int check_moves_1(char **map, int rows, int columns, int direction)
     return (0);
 }
 
-int main(int ac, char **av)
+int main_loop(int lengthy, int lengthx, char *buff, int sb)
 {
-    WINDOW *win;
-    struct winsize w;
-    struct stat sb;
-    stat(av[1], &sb);
-    ioctl(0, TIOCGWINSZ, &w);
-    int columns = w.ws_col / 2;
-    int rows = w.ws_row / 2;
-    int stringLength;
-    int c;
-    char **map_2d = malloc(sizeof(char *) * sb.st_size + 1);
-    int size = 0;
-    int fd;
-    int startx = (80 - 30) / 2;
-    int starty = (80 - 10) / 2;
-    char *buff = malloc(sizeof(char) * sb.st_size + 2);
-    int lengthx = 0;
-    int lengthy = 0;
-    int numberZero = 0;
-    int numberCase = 0;
+    char **map_2d = transform_2d(buff, sb, lengthx);
     int tmpPosy = 0;
     int tmpPosx = 0;
+    int rows = 1;
+    int columns = 1;
+    int c;
+    int numberZero = number_of_answer(map_2d, lengthy, lengthx);
+    int numberCase = number_of_cases(map_2d, lengthy, lengthx);
 
-    if (ac != 2)
-        return (84);
-    fd = open(av[1], O_RDONLY);
-    if (fd == - 1) {
-        my_putstr("Error with opn\n");
-        return (84);
-    }
-    stringLength = my_strlen(av[1]) / 2;
-    size = read(fd, buff, sb.st_size);
-    lengthx = length_map_x(buff);
-    lengthy = length_map_y(buff);
-    map_2d = transform_2d(buff, sb, lengthx);
-    columns += stringLength;
-    initscr();
-    noecho();
-    win = newwin(100, 300, startx, starty);
-    keypad(win, TRUE);
-    curs_set(FALSE);
-    refresh();
-    numberZero = number_of_answer(buff);
-    numberCase = number_of_cases(buff);
-    rows = 1;
-    columns = 1;
     while (numberZero > 0 && numberCase > 0) {
         clear();
         for (int i = 0; i < lengthy; i++)
             printw("%s", map_2d[i]);
         mvprintw(rows, columns, "P");
         refresh();
-        c = wgetch(win);
+        c = getch();
         switch(c)
         {
             case KEY_LEFT:
@@ -277,15 +245,46 @@ int main(int ac, char **av)
             case ' ':
                 rows = 1;
                 columns = 1;
-                numberZero = number_of_answer(buff);
-                numberCase = number_of_cases(buff);
+                numberZero = number_of_answer(map_2d, lengthy, lengthx);
+                numberCase = number_of_cases(map_2d, lengthy, lengthx);
                 map_2d = transform_2d(buff, sb, lengthx);
             default:
                 break;
         }
     }
-    endwin();
     if (numberCase == 0)
         return (1);
-    return 0;
+    return (0);
+}
+
+int my_sokoban(char *buff, int sb)
+{
+    int lengthx = length_map_x(buff);
+    int lengthy = length_map_y(buff);
+    int value;
+
+    initscr();
+    noecho();
+    keypad(stdscr, TRUE);
+    curs_set(FALSE);
+    value = main_loop(lengthy, lengthx, buff, sb);
+    endwin();
+    return (value);
+;}
+
+int main(int ac, char **av)
+{
+    int size = 0;
+    int fd;
+    char *buff = malloc(sizeof(char) * 1000 + 2);
+
+    if (ac != 2)
+        return (84);
+    fd = open(av[1], O_RDONLY);
+    if (fd == - 1) {
+        my_putstr("Error with opn\n");
+        return (84);
+    }
+    size = read(fd, buff, 1000);
+    return (my_sokoban(buff, 1000));
 }
