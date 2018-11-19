@@ -80,24 +80,8 @@ int number_of_cases(char *map)
     return (number);
 }
 
-int check_moves(char **map, int rows, int columns, int direction)
+int check_moves_2(char **map, int rows, int columns, int direction)
 {
-    if (direction == 0) {
-        if ((map[rows][columns - 2] == '#' &&
-        map[rows - 1][columns - 1] == '#') ||
-        (map[rows][columns - 2] == '#' &&
-        map[rows + 1][columns - 1] == '#')) {
-            return (1);
-        }
-    }
-    if (direction == 1) {
-        if ((map[rows][columns + 2] == '#' &&
-        map[rows - 1][columns + 1] == '#') ||
-        (map[rows][columns + 2] == '#' &&
-        map[rows + 1][columns + 1] == '#')) {
-            return (1);
-        }
-    }
     if (direction == 2) {
         if ((map[rows - 2][columns] == '#' &&
         map[rows - 1][columns - 1] == '#') ||
@@ -117,6 +101,27 @@ int check_moves(char **map, int rows, int columns, int direction)
     return (0);
 }
 
+int check_moves_1(char **map, int rows, int columns, int direction)
+{
+    if (direction == 0) {
+        if ((map[rows][columns - 2] == '#' &&
+        map[rows - 1][columns - 1] == '#') ||
+        (map[rows][columns - 2] == '#' &&
+        map[rows + 1][columns - 1] == '#')) {
+            return (1);
+        }
+    }
+    if (direction == 1) {
+        if ((map[rows][columns + 2] == '#' &&
+        map[rows - 1][columns + 1] == '#') ||
+        (map[rows][columns + 2] == '#' &&
+        map[rows + 1][columns + 1] == '#')) {
+            return (1);
+        }
+    }
+    return (0);
+}
+
 int main(int ac, char **av)
 {
     WINDOW *win;
@@ -129,7 +134,7 @@ int main(int ac, char **av)
     int stringLength;
     int c;
     char **map_2d = malloc(sizeof(char *) * sb.st_size + 1);
-    int size;
+    int size = 0;
     int fd;
     int startx = (80 - 30) / 2;
     int starty = (80 - 10) / 2;
@@ -145,7 +150,7 @@ int main(int ac, char **av)
         return (84);
     fd = open(av[1], O_RDONLY);
     if (fd == - 1) {
-        printf("Error with opn\n");
+        my_putstr("Error with opn\n");
         return (84);
     }
     stringLength = my_strlen(av[1]) / 2;
@@ -184,7 +189,7 @@ int main(int ac, char **av)
                             map_2d[rows][columns - 1] = ' ';
                         map_2d[rows][columns - 2] = 'X';
                         columns--;
-                        numberCase -= check_moves(map_2d, rows, columns, 0);
+                        numberCase -= check_moves_1(map_2d, rows, columns, 0);
                     } else if (map_2d[rows][columns - 2] == 'O') {
                         map_2d[rows][columns - 1] = ' ';
                         map_2d[rows][columns - 2] = 'X';
@@ -208,7 +213,7 @@ int main(int ac, char **av)
                             map_2d[rows][columns + 1] = ' ';
                         map_2d[rows][columns + 2] = 'X';
                         columns++;
-                        numberCase -= check_moves(map_2d, rows, columns, 1);
+                        numberCase -= check_moves_1(map_2d, rows, columns, 1);
                     } else if (map_2d[rows][columns + 2] == 'O') {
                         map_2d[rows][columns + 1] = ' ';
                         map_2d[rows][columns + 2] = 'X';
@@ -232,7 +237,7 @@ int main(int ac, char **av)
                             map_2d[rows - 1][columns] = ' ';
                         map_2d[rows - 2][columns] = 'X';
                         rows--;
-                        numberCase -= check_moves(map_2d, rows, columns, 2);
+                        numberCase -= check_moves_2(map_2d, rows, columns, 2);
                     } else if (map_2d[rows - 2][columns] == 'O') {
                         map_2d[rows - 1][columns] = ' ';
                         map_2d[rows - 2][columns] = 'X';
@@ -256,7 +261,7 @@ int main(int ac, char **av)
                             map_2d[rows + 1][columns] = ' ';
                         map_2d[rows + 2][columns] = 'X';
                         rows++;
-                        numberCase -= check_moves(map_2d, rows, columns, 3);
+                        numberCase -= check_moves_2(map_2d, rows, columns, 3);
                     } else if (map_2d[rows + 2][columns] == 'O') {
                         map_2d[rows + 1][columns] = ' ';
                         map_2d[rows + 2][columns] = 'X';
