@@ -8,7 +8,9 @@
 CC      =       gcc
 
 SRC     =	main.c \
-		src/my_strlen.c
+		src/my_strlen.c \
+		src/my_putstr.c \
+		src/my_putchar.c
 
 OBJ     =       $(SRC:.c=.o)
 
