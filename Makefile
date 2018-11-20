@@ -7,7 +7,11 @@
 
 CC      =       gcc
 
-SRC     =	main.c \
+SRC     =	my_sokoban_main.c \
+		my_sokoban_get.c \
+		my_sokoban_moves.c \
+		my_sokoban_switch.c \
+		my_sokoban_display.c \
 		src/my_strlen.c \
 		src/my_putstr.c \
 		src/my_putchar.c
