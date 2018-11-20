@@ -8,6 +8,16 @@
 #ifndef MY_H_
 #define MY_H_
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <ncurses.h>
+#include <fcntl.h>
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
 struct position {
     int rows;
     int columns;

@@ -5,15 +5,6 @@
 ** my_popup
 */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <ncurses.h>
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "my.h"
 
 char **main_switch(char **map_2d, struct position *pos,

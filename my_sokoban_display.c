@@ -5,15 +5,6 @@
 ** d
 */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <ncurses.h>
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "my.h"
 
 void left_main_check_last_pos(char **map_2d, struct position *pos,
@@ -75,9 +66,9 @@ struct number *num)
 char **restart_game(struct position *pos,
 struct number *num, char **map_2d, struct length *len)
 {
+    map_2d = transform_2d(num, len->lengthx);
     num->numberZero = number_of_answer(map_2d, len);
     num->numberCase = number_of_cases(map_2d, len);
-    map_2d = transform_2d(num, len->lengthx);
     find_pos_player(map_2d, len, pos);
     map_2d[pos->rows][pos->columns] = ' ';
     return (map_2d);
