@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** Project Name
+** my_sokoban
 ** File description:
-** d
+** my_sokoban_switch
 */
 
 #include "my.h"
@@ -77,4 +77,18 @@ void down_main(char **map_2d, struct position *pos, struct number *num)
     } else if (map_2d[pos->rows + 1][pos->columns] != '#') {
         pos->rows++;
     }
+}
+
+int find_pos_player(char **map, struct length *len, struct position *pos)
+{
+    for (int i = 0; i < len->lengthy; i++) {
+        for (int j = 0; j < len->lengthx; j++) {
+            if (map[i][j] == 'P') {
+                pos->rows = i;
+                pos->columns = j;
+                return (0);
+            }
+        }
+    }
+    return (84);
 }

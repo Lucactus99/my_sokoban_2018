@@ -51,8 +51,10 @@ void left_main_check_last_pos(char **, struct position *, struct number *);
 void right_main_check_last_pos(char **, struct position *, struct number *);
 void up_main_check_last_pos(char **, struct position *, struct number *);
 void down_main_check_last_pos(char **, struct position *, struct number *);
-int check_moves_2(char **, struct position *, int);
-int check_moves_1(char **, struct position *, int);
+int check_moves_left(char **, struct position *);
+int check_moves_right(char **, struct position *);
+int check_moves_up(char **, struct position *);
+int check_moves_down(char **, struct position *);
 int find_pos_player(char **, struct length *, struct position *);
 char **restart_game(struct position *, struct number *,
 char **, struct length *);

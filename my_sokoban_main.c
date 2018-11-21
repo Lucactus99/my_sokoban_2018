@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** Project Name
+** my_sokoban
 ** File description:
-** my_popup
+** my_sokoban_main
 */
 
 #include "my.h"

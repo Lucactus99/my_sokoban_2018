@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** Project Name
+** my_sokoban
 ** File description:
-** d
+** my_sokoban_get
 */
 
 #include "my.h"
