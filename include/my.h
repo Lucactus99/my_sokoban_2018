@@ -8,6 +8,7 @@
 #ifndef MY_H_
 #define MY_H_
 
+#define _GNU_SOURCE
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>

@@ -35,9 +35,8 @@ int main_loop(struct length *len, struct number *num)
         return (84);
     else
         map_2d[pos->rows][pos->columns] = ' ';
-    while (num->numberZero > 0 && num->numberCase > 0) {
+    while (num->numberZero > 0 && num->numberCase > 0)
         map_2d = main_switch(map_2d, pos, num, len);
-    }
     if (num->numberCase == 0)
         return (1);
     return (0);
@@ -60,35 +59,42 @@ int my_sokoban(struct number *num)
     return (value);
 }
 
-int check_error(char *buff)
+int check_error(struct number *num, char **av)
 {
-    for (int i = 0; buff[i] != '\0'; i++) {
-        if (buff[i] != '\n' && buff[i] != ' ' && buff[i] != '#' &&
-        buff[i] != 'P' && buff[i] != 'X' && buff[i] != 'O') {
+    FILE *fp;
+
+    fp = fopen(av[1], "r");
+    num->buff = malloc(sizeof(char) * num->sb);
+    fread(num->buff, 1, num->sb - 1, fp);
+    num->buff[num->sb] = '\0';
+    fclose(fp);
+    for (int i = 0; num->buff[i] != '\0'; i++) {
+        if (num->buff[i] != '\n' && num->buff[i] != ' ' && num->buff[i] != '#'
+        && num->buff[i] != 'P' && num->buff[i] != 'X' && num->buff[i] != 'O')
             return (84);
-        }
     }
     return (0);
 }
 
 int main(int ac, char **av)
 {
-    int size = 0;
-    int fd;
-    struct number *num;
-    num = malloc(sizeof(struct number));
-    num->sb = 1000;
-    num->buff = malloc(sizeof(char) * num->sb + 2);
+    FILE *fp;
+    struct number *num = malloc(sizeof(struct number));
+    ssize_t read = 0;
+    size_t len = 0;
+    char *line = NULL;
 
     if (ac != 2)
         return (84);
-    fd = open(av[1], O_RDONLY);
-    if (fd == - 1) {
-        my_putstr("Error with opn\n");
+    fp = fopen(av[1], "r");
+    if (fp == NULL)
         return (84);
-    }
-    size = read(fd, num->buff, num->sb);
-    if (check_error(num->buff) == 84)
+    while ((read = getline(&line, &len, fp)) != -1)
+        num->sb += read;
+    if (line)
+        free(line);
+    fclose(fp);
+    if (check_error(num, av) == 84)
         return (84);
     return (my_sokoban(num));
 }

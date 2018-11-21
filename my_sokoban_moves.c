@@ -36,17 +36,21 @@ int check_moves_2(char **map, struct position *pos, int direction)
 {
     if (direction == 2) {
         if ((map[pos->rows - 2][pos->columns] == '#' &&
-        map[pos->rows - 1][pos->columns - 1] == '#') ||
+        (map[pos->rows - 1][pos->columns - 1] == '#' ||
+        map[pos->rows - 1][pos->columns - 1] == 'X')) ||
         (map[pos->rows - 2][pos->columns] == '#' &&
-        map[pos->rows - 1][pos->columns + 1] == '#')) {
+        (map[pos->rows - 1][pos->columns + 1] == '#' ||
+        map[pos->rows - 1][pos->columns + 1] == 'X'))) {
             return (1);
         }
     }
     if (direction == 3) {
         if ((map[pos->rows + 2][pos->columns] == '#' &&
-        map[pos->rows + 1][pos->columns - 1] == '#') ||
+        (map[pos->rows + 1][pos->columns - 1] == '#' ||
+        map[pos->rows + 1][pos->columns - 1] == 'X')) ||
         (map[pos->rows + 2][pos->columns] == '#' &&
-        map[pos->rows + 1][pos->columns + 1] == '#')) {
+        (map[pos->rows + 1][pos->columns + 1] == '#' ||
+        map[pos->rows + 1][pos->columns + 1] == 'X'))) {
             return (1);
         }
     }
@@ -57,17 +61,21 @@ int check_moves_1(char **map, struct position *pos, int direction)
 {
     if (direction == 0) {
         if ((map[pos->rows][pos->columns - 2] == '#' &&
-        map[pos->rows - 1][pos->columns - 1] == '#') ||
+        (map[pos->rows - 1][pos->columns - 1] == '#' ||
+        map[pos->rows - 1][pos->columns - 1] == 'X')) ||
         (map[pos->rows][pos->columns - 2] == '#' &&
-        map[pos->rows + 1][pos->columns - 1] == '#')) {
+        (map[pos->rows + 1][pos->columns - 1] == '#' ||
+        map[pos->rows + 1][pos->columns - 1] == 'X'))) {
             return (1);
         }
     }
     if (direction == 1) {
         if ((map[pos->rows][pos->columns + 2] == '#' &&
-        map[pos->rows - 1][pos->columns + 1] == '#') ||
+        (map[pos->rows - 1][pos->columns + 1] == '#' ||
+        map[pos->rows - 1][pos->columns + 1] == 'X')) ||
         (map[pos->rows][pos->columns + 2] == '#' &&
-        map[pos->rows + 1][pos->columns + 1] == '#')) {
+        (map[pos->rows + 1][pos->columns + 1] == '#' ||
+        map[pos->rows + 1][pos->columns + 1] == 'X'))) {
             return (1);
         }
     }
