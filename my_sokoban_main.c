@@ -60,6 +60,17 @@ int my_sokoban(struct number *num)
     return (value);
 }
 
+int check_error(char *buff)
+{
+    for (int i = 0; buff[i] != '\0'; i++) {
+        if (buff[i] != '\n' && buff[i] != ' ' && buff[i] != '#' &&
+        buff[i] != 'P' && buff[i] != 'X' && buff[i] != 'O') {
+            return (84);
+        }
+    }
+    return (0);
+}
+
 int main(int ac, char **av)
 {
     int size = 0;
@@ -77,5 +88,7 @@ int main(int ac, char **av)
         return (84);
     }
     size = read(fd, num->buff, num->sb);
+    if (check_error(num->buff) == 84)
+        return (84);
     return (my_sokoban(num));
 }
