@@ -7,19 +7,19 @@
 
 #include "my.h"
 
-char **transform_2d(struct number *num, int lengthx)
+char **transform_2d(struct number *num, struct length *len)
 {
-    char **map_2d = malloc(sizeof(char *) * 1000 + 3);
+    char **map_2d = malloc(sizeof(char *) * (len->lengthy + 1));
     int i = 0;
     int j = 0;
     int k = 0;
     int l = 0;
 
-    for (k = 0; num->buff[k] != '\0'; k++) {
-        map_2d[k] = malloc(sizeof(char) * lengthx + 1);
+    for (k = 0; k < len->lengthy + 1; k++) {
+        map_2d[k] = malloc(sizeof(char) * (len->lengthx + 1));
     }
-    for (i = 0; i < num->sb + 2; i++) {
-        if (j == lengthx + 1) {
+    for (i = 0; i < num->sb; i++) {
+        if (j == len->lengthx + 1) {
             j = 0;
             l++;
         }
@@ -34,8 +34,7 @@ int length_map_y(char *map)
     int length = 0;
 
     for (int i = 0; map[i] != '\0'; i++) {
-        if (map[i] == '\n')
-            length++;
+        length++;
     }
     return (length);
 }

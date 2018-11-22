@@ -40,7 +40,7 @@ struct number {
 void my_putchar(char);
 int my_putstr(char const *);
 int my_strlen(char const *);
-char **transform_2d(struct number *, int);
+char **transform_2d(struct number *, struct length *);
 int number_of_answer(char **, struct length *, struct position *pos);
 int number_of_cases(char **, struct length *);
 void left_main(char **, struct position *, struct number *);

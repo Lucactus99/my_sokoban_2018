@@ -21,7 +21,7 @@ struct number *num, struct length *len)
 
 int main_loop(struct length *len, struct number *num)
 {
-    char **map_2d = transform_2d(num, len->lengthx);
+    char **map_2d = transform_2d(num, len);
     struct position *pos;
     pos = malloc(sizeof(struct position));
     pos->rows = 1;
