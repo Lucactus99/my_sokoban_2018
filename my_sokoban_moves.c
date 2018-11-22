@@ -20,12 +20,12 @@ struct number *num, char **map_2d, struct length *len)
 
 int check_moves_left(char **map, struct position *pos)
 {
-    if (map[pos->rows][pos->columns - 2] == '#' &&
-    map[pos->rows - 1][pos->columns - 1] == 'X' &&
+    if (map[pos->rows][pos->columns - 2] == 'X' &&
+    map[pos->rows - 1][pos->columns - 1] == '#' &&
     map[pos->rows - 1][pos->columns - 2] == '#')
         return (2);
-    if (map[pos->rows][pos->columns - 2] == '#' &&
-    map[pos->rows + 1][pos->columns - 1] == 'X' &&
+    if (map[pos->rows][pos->columns - 2] == 'X' &&
+    map[pos->rows + 1][pos->columns - 1] == '#' &&
     map[pos->rows + 1][pos->columns - 2] == '#')
         return (2);
     if ((map[pos->rows][pos->columns - 2] == '#' &&
@@ -40,12 +40,12 @@ int check_moves_left(char **map, struct position *pos)
 
 int check_moves_right(char **map, struct position *pos)
 {
-    if (map[pos->rows][pos->columns + 2] == '#' &&
-    map[pos->rows - 1][pos->columns + 1] == 'X' &&
+    if (map[pos->rows][pos->columns + 2] == 'X' &&
+    map[pos->rows - 1][pos->columns + 1] == '#' &&
     map[pos->rows - 1][pos->columns + 2] == '#')
         return (2);
-    if (map[pos->rows][pos->columns + 2] == '#' &&
-    map[pos->rows + 1][pos->columns + 1] == 'X' &&
+    if (map[pos->rows][pos->columns + 2] == 'X' &&
+    map[pos->rows + 1][pos->columns + 1] == '#' &&
     map[pos->rows + 1][pos->columns + 2] == '#')
         return (2);
     if ((map[pos->rows][pos->columns + 2] == '#' &&

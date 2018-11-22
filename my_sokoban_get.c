@@ -48,29 +48,3 @@ int length_map_x(char *map)
         length++;
     return (length);
 }
-
-int number_of_answer(char **map, struct length *len)
-{
-    int number = 0;
-
-    for (int i = 0; i < len->lengthy; i++) {
-        for (int j = 0; j < len->lengthx; j++) {
-            if (map[i][j] == 'O')
-                number++;
-        }
-    }
-    return (number);
-}
-
-int number_of_cases(char **map, struct length *len)
-{
-    int number = 0;
-
-    for (int i = 0; i < len->lengthy; i++) {
-        for (int j = 0; j < len->lengthx; j++) {
-            if (map[i][j] == 'X')
-                number++;
-        }
-    }
-    return (number);
-}
