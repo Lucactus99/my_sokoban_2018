@@ -26,11 +26,12 @@ int main_loop(struct length *len, struct number *num)
     pos = malloc(sizeof(struct position));
     pos->rows = 1;
     pos->columns = 1;
-    pos->tmpPosy = 0;
-    pos->tmpPosx = 0;
-    num->numberZero = number_of_answer(map_2d, len);
+    num->numberZero = number_of_answer(map_2d, len, pos);
+    num->numberZeroConst = number_of_answer(map_2d, len, pos);
     num->numberCase = number_of_cases(map_2d, len);
 
+    if (num->numberZero != num->numberCase)
+        return (84);
     if (find_pos_player(map_2d, len, pos) == 84)
         return (84);
     else
@@ -64,8 +65,8 @@ int check_error(struct number *num, char **av)
     FILE *fp;
 
     fp = fopen(av[1], "r");
-    num->buff = malloc(sizeof(char) * num->sb);
-    fread(num->buff, 1, num->sb - 1, fp);
+    num->buff = malloc(sizeof(char) * (num->sb + 1));
+    fread(num->buff, 1, num->sb, fp);
     num->buff[num->sb] = '\0';
     fclose(fp);
     for (int i = 0; num->buff[i] != '\0'; i++) {

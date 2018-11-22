@@ -22,8 +22,8 @@
 struct position {
     int rows;
     int columns;
-    int tmpPosy;
-    int tmpPosx;
+    int *answerx;
+    int *answery;
 };
 struct length {
     int lengthy;
@@ -31,15 +31,17 @@ struct length {
 };
 struct number {
     int numberZero;
+    int numberZeroConst;
     int numberCase;
     int sb;
     char *buff;
 };
+
 void my_putchar(char);
 int my_putstr(char const *);
 int my_strlen(char const *);
 char **transform_2d(struct number *, int);
-int number_of_answer(char **, struct length *);
+int number_of_answer(char **, struct length *, struct position *pos);
 int number_of_cases(char **, struct length *);
 void left_main(char **, struct position *, struct number *);
 void right_main(char **, struct position *, struct number *);
@@ -47,10 +49,10 @@ void up_main(char **, struct position *, struct number *);
 void down_main(char **, struct position *, struct number *);
 int length_map_x(char *);
 int length_map_y(char *);
-void left_main_check_last_pos(char **, struct position *, struct number *);
-void right_main_check_last_pos(char **, struct position *, struct number *);
-void up_main_check_last_pos(char **, struct position *, struct number *);
-void down_main_check_last_pos(char **, struct position *, struct number *);
+int left_main_check_last_pos(char **, struct position *, struct number *);
+int right_main_check_last_pos(char **, struct position *, struct number *);
+int up_main_check_last_pos(char **, struct position *, struct number *);
+int down_main_check_last_pos(char **, struct position *, struct number *);
 int check_moves_left(char **, struct position *);
 int check_moves_right(char **, struct position *);
 int check_moves_up(char **, struct position *);

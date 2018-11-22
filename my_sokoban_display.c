@@ -7,60 +7,88 @@
 
 #include "my.h"
 
-void left_main_check_last_pos(char **map_2d, struct position *pos,
+int left_main_check_last_pos(char **map_2d, struct position *pos,
 struct number *num)
 {
-    if (pos->tmpPosy == pos->rows && pos->tmpPosx == pos->columns - 1) {
-        num->numberZero++;
-        map_2d[pos->rows][pos->columns - 1] = 'O';
+    for (int i = 0; i < num->numberZeroConst; i++) {
+        if (pos->answery[i] == pos->rows &&
+            pos->answerx[i] == pos->columns - 1) {
+            num->numberZero++;
+            map_2d[pos->rows][pos->columns - 1] = 'O';
+            map_2d[pos->rows][pos->columns - 2] = 'X';
+            pos->columns--;
+            num->numberCase -= check_moves_left(map_2d, pos);
+            return (0);
+        }
     }
-    else
-        map_2d[pos->rows][pos->columns - 1] = ' ';
+    map_2d[pos->rows][pos->columns - 1] = ' ';
     map_2d[pos->rows][pos->columns - 2] = 'X';
     pos->columns--;
     num->numberCase -= check_moves_left(map_2d, pos);
+    return (0);
 }
 
-void right_main_check_last_pos(char **map_2d, struct position *pos,
+int right_main_check_last_pos(char **map_2d, struct position *pos,
 struct number *num)
 {
-    if (pos->tmpPosy == pos->rows && pos->tmpPosx == pos->columns + 1) {
-        num->numberZero++;
-        map_2d[pos->rows][pos->columns + 1] = 'O';
+    for (int i = 0; i < num->numberZeroConst; i++) {
+        if (pos->answery[i] == pos->rows &&
+            pos->answerx[i] == pos->columns + 1) {
+            num->numberZero++;
+            map_2d[pos->rows][pos->columns + 1] = 'O';
+            map_2d[pos->rows][pos->columns + 2] = 'X';
+            pos->columns++;
+            num->numberCase -= check_moves_right(map_2d, pos);
+            return (0);
+        }
     }
-    else
-        map_2d[pos->rows][pos->columns + 1] = ' ';
+    map_2d[pos->rows][pos->columns + 1] = ' ';
     map_2d[pos->rows][pos->columns + 2] = 'X';
     pos->columns++;
     num->numberCase -= check_moves_right(map_2d, pos);
+    return (0);
 }
 
-void up_main_check_last_pos(char **map_2d, struct position *pos,
+int up_main_check_last_pos(char **map_2d, struct position *pos,
 struct number *num)
 {
-    if (pos->tmpPosy == pos->rows - 1 && pos->tmpPosx == pos->columns) {
-        num->numberZero++;
-        map_2d[pos->rows - 1][pos->columns] = 'O';
+    for (int i = 0; i < num->numberZeroConst; i++) {
+        if (pos->answery[i] == pos->rows - 1 &&
+            pos->answerx[i] == pos->columns) {
+            num->numberZero++;
+            map_2d[pos->rows - 1][pos->columns] = 'O';
+            map_2d[pos->rows - 2][pos->columns] = 'X';
+            pos->rows--;
+            num->numberCase -= check_moves_up(map_2d, pos);
+            return (0);
+        }
     }
-    else
-        map_2d[pos->rows - 1][pos->columns] = ' ';
+    map_2d[pos->rows - 1][pos->columns] = ' ';
     map_2d[pos->rows - 2][pos->columns] = 'X';
     pos->rows--;
     num->numberCase -= check_moves_up(map_2d, pos);
+    return (0);
 }
 
-void down_main_check_last_pos(char **map_2d, struct position *pos,
+int down_main_check_last_pos(char **map_2d, struct position *pos,
 struct number *num)
 {
-    if (pos->tmpPosy == pos->rows + 1 && pos->tmpPosx == pos->columns) {
-        num->numberZero++;
-        map_2d[pos->rows + 1][pos->columns] = 'O';
+    for (int i = 0; i < num->numberZeroConst; i++) {
+        if (pos->answery[i] == pos->rows + 1 &&
+            pos->answerx[i] == pos->columns) {
+            num->numberZero++;
+            map_2d[pos->rows + 1][pos->columns] = 'O';
+            map_2d[pos->rows + 2][pos->columns] = 'X';
+            pos->rows++;
+            num->numberCase -= check_moves_down(map_2d, pos);
+            return (0);
+        }
     }
-    else
-        map_2d[pos->rows + 1][pos->columns] = ' ';
+    map_2d[pos->rows + 1][pos->columns] = ' ';
     map_2d[pos->rows + 2][pos->columns] = 'X';
     pos->rows++;
     num->numberCase -= check_moves_down(map_2d, pos);
+    return (0);
 }
 
 char **case_switch(struct position *pos,

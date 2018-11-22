@@ -11,7 +11,7 @@ char **restart_game(struct position *pos,
 struct number *num, char **map_2d, struct length *len)
 {
     map_2d = transform_2d(num, len->lengthx);
-    num->numberZero = number_of_answer(map_2d, len);
+    num->numberZero = number_of_answer(map_2d, len, pos);
     num->numberCase = number_of_cases(map_2d, len);
     find_pos_player(map_2d, len, pos);
     map_2d[pos->rows][pos->columns] = ' ';
