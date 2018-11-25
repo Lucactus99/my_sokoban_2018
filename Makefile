@@ -15,7 +15,8 @@ SRC     =	my_sokoban_main.c \
 		my_sokoban_count.c \
 		src/my_strlen.c \
 		src/my_putstr.c \
-		src/my_putchar.c
+		src/my_putchar.c \
+		src/my_strcmp.c
 
 OBJ     =       $(SRC:.c=.o)
 

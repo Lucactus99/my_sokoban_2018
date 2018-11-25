@@ -7,18 +7,6 @@
 
 #include "my.h"
 
-char **main_switch(char **map_2d, struct position *pos,
-struct number *num, struct length *len)
-{
-    clear();
-    for (int i = 0; i < len->lengthy; i++)
-        printw("%s", map_2d[i]);
-    mvprintw(pos->rows, pos->columns, "P");
-    refresh();
-    map_2d = case_switch(pos, num, map_2d, len);
-    return (map_2d);
-}
-
 int main_loop(struct length *len, struct number *num)
 {
     char **map_2d = transform_2d(num, len);
@@ -60,7 +48,7 @@ int my_sokoban(struct number *num)
     return (value);
 }
 
-int check_error(struct number *num, char **av)
+void check_error(struct number *num, char **av)
 {
     FILE *fp;
 
@@ -72,9 +60,19 @@ int check_error(struct number *num, char **av)
     for (int i = 0; num->buff[i] != '\0'; i++) {
         if (num->buff[i] != '\n' && num->buff[i] != ' ' && num->buff[i] != '#'
         && num->buff[i] != 'P' && num->buff[i] != 'X' && num->buff[i] != 'O')
-            return (84);
+            exit(84);
     }
-    return (0);
+}
+
+void help(void)
+{
+    my_putstr("USAGE\n");
+    my_putstr("\t./my_sokoban map\n");
+    my_putstr("DESCRIPTION\n");
+    my_putstr("\tmap\tfile representing the warehouse map, ");
+    my_putstr("containing '#' for walls, \n");
+    my_putstr("\t\t'P' for the player, 'X' for boxes and");
+    my_putstr(" 'O' for storage locations.\n");
 }
 
 int main(int ac, char **av)
@@ -85,8 +83,10 @@ int main(int ac, char **av)
     size_t len = 0;
     char *line = NULL;
 
-    if (ac != 2)
+    if ((ac == 2 && my_strcmp(av[1], "-h") == 0) || ac != 2) {
+        help();
         return (84);
+    }
     fp = fopen(av[1], "r");
     if (fp == NULL)
         return (84);
@@ -95,7 +95,6 @@ int main(int ac, char **av)
     if (line)
         free(line);
     fclose(fp);
-    if (check_error(num, av) == 84)
-        return (84);
+    check_error(num, av);
     return (my_sokoban(num));
 }

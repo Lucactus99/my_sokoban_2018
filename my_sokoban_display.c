@@ -90,28 +90,3 @@ struct number *num)
     num->numberCase -= check_moves_down(map_2d, pos);
     return (0);
 }
-
-char **case_switch(struct position *pos,
-struct number *num, char **map_2d, struct length *len)
-{
-    switch(getch()) {
-        case KEY_LEFT:
-            left_main(map_2d, pos, num);
-            break;
-        case KEY_RIGHT:
-            right_main(map_2d, pos, num);
-            break;
-        case KEY_UP:
-            up_main(map_2d, pos, num);
-            break;
-        case KEY_DOWN:
-            down_main(map_2d, pos, num);
-            break;
-        case ' ':
-            map_2d = restart_game(pos, num, map_2d, len);
-            break;
-        default:
-            break;
-    }
-    return (map_2d);
-}

@@ -40,8 +40,9 @@ struct number {
 void my_putchar(char);
 int my_putstr(char const *);
 int my_strlen(char const *);
+int my_strcmp(char const *, char const *);
 char **transform_2d(struct number *, struct length *);
-int number_of_answer(char **, struct length *, struct position *pos);
+int number_of_answer(char **, struct length *, struct position *);
 int number_of_cases(char **, struct length *);
 void left_main(char **, struct position *, struct number *);
 void right_main(char **, struct position *, struct number *);
@@ -60,6 +61,8 @@ int check_moves_down(char **, struct position *);
 int find_pos_player(char **, struct length *, struct position *);
 char **restart_game(struct position *, struct number *,
 char **, struct length *);
+char **main_switch(char **, struct position *,
+struct number *, struct length *);
 char **case_switch(struct position *, struct number *,
 char **, struct length *);
 

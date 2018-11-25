@@ -57,3 +57,17 @@ int number_of_cases(char **map, struct length *len)
     }
     return (number);
 }
+
+int find_pos_player(char **map, struct length *len, struct position *pos)
+{
+    for (int i = 0; i < len->lengthy; i++) {
+        for (int j = 0; j < len->lengthx; j++) {
+            if (map[i][j] == 'P') {
+                pos->rows = i;
+                pos->columns = j;
+                return (0);
+            }
+        }
+    }
+    return (84);
+}

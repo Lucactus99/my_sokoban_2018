@@ -7,6 +7,18 @@
 
 #include "my.h"
 
+char **main_switch(char **map_2d, struct position *pos,
+struct number *num, struct length *len)
+{
+    clear();
+    for (int i = 0; i < len->lengthy; i++)
+        printw("%s", map_2d[i]);
+    mvprintw(pos->rows, pos->columns, "P");
+    refresh();
+    map_2d = case_switch(pos, num, map_2d, len);
+    return (map_2d);
+}
+
 void left_main(char **map_2d, struct position *pos, struct number *num)
 {
     if (map_2d[pos->rows][pos->columns - 1] == 'X') {
@@ -69,18 +81,4 @@ void down_main(char **map_2d, struct position *pos, struct number *num)
     } else if (map_2d[pos->rows + 1][pos->columns] != '#') {
         pos->rows++;
     }
-}
-
-int find_pos_player(char **map, struct length *len, struct position *pos)
-{
-    for (int i = 0; i < len->lengthy; i++) {
-        for (int j = 0; j < len->lengthx; j++) {
-            if (map[i][j] == 'P') {
-                pos->rows = i;
-                pos->columns = j;
-                return (0);
-            }
-        }
-    }
-    return (84);
 }
