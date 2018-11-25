@@ -10,14 +10,13 @@
 int main_loop(struct length *len, struct number *num)
 {
     char **map_2d = transform_2d(num, len);
-    struct position *pos;
-    pos = malloc(sizeof(struct position));
+    struct position *pos = malloc(sizeof(struct position));
+
     pos->rows = 1;
     pos->columns = 1;
     num->numberZero = number_of_answer(map_2d, len, pos);
     num->numberZeroConst = number_of_answer(map_2d, len, pos);
     num->numberCase = number_of_cases(map_2d, len);
-
     if (num->numberZero != num->numberCase)
         return (84);
     if (find_pos_player(map_2d, len, pos) == 84)
@@ -33,12 +32,11 @@ int main_loop(struct length *len, struct number *num)
 
 int my_sokoban(struct number *num)
 {
-    struct length *len;
-    len = malloc(sizeof(struct length));
-    len->lengthx = length_map_x(num->buff);
-    len->lengthy = length_map_y(num->buff);
+    struct length *len = malloc(sizeof(struct length));
     int value;
 
+    len->lengthx = length_map_x(num->buff);
+    len->lengthy = length_map_y(num->buff);
     initscr();
     noecho();
     keypad(stdscr, TRUE);
