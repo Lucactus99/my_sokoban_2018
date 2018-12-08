@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-char **main_switch(char **map_2d, struct position *pos,
+char **main_switcher(char **map_2d, struct position *pos,
 struct number *num, struct length *len)
 {
     clear();
@@ -15,7 +15,7 @@ struct number *num, struct length *len)
         printw("%s", map_2d[i]);
     mvprintw(pos->rows, pos->columns, "P");
     refresh();
-    map_2d = case_switch(pos, num, map_2d, len);
+    map_2d = case_switcher(pos, num, map_2d, len);
     return (map_2d);
 }
 

@@ -61,9 +61,11 @@ int check_moves_down(char **, struct position *);
 int find_pos_player(char **, struct length *, struct position *);
 char **restart_game(struct position *, struct number *,
 char **, struct length *);
-char **main_switch(char **, struct position *,
+char **main_switcher(char **, struct position *,
 struct number *, struct length *);
-char **case_switch(struct position *, struct number *,
+char **case_switcher(struct position *, struct number *,
 char **, struct length *);
+void initiate_varia(struct position *, struct number *, char **,
+struct length *);
 
 #endif //MY_H_

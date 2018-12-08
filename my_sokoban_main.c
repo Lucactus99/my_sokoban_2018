@@ -12,11 +12,7 @@ int main_loop(struct length *len, struct number *num)
     char **map_2d = transform_2d(num, len);
     struct position *pos = malloc(sizeof(struct position));
 
-    pos->rows = 1;
-    pos->columns = 1;
-    num->numberZero = number_of_answer(map_2d, len, pos);
-    num->numberZeroConst = number_of_answer(map_2d, len, pos);
-    num->numberCase = number_of_cases(map_2d, len);
+    initiate_varia(pos, num, map_2d, len);
     if (num->numberZero != num->numberCase)
         return (84);
     if (find_pos_player(map_2d, len, pos) == 84)
@@ -24,7 +20,12 @@ int main_loop(struct length *len, struct number *num)
     else
         map_2d[pos->rows][pos->columns] = ' ';
     while (num->numberZero > 0 && num->numberCase > 0)
-        map_2d = main_switch(map_2d, pos, num, len);
+        map_2d = main_switcher(map_2d, pos, num, len);
+    clear();
+    for (int i = 0; i < len->lengthy; i++)
+        printw("%s", map_2d[i]);
+    mvprintw(pos->rows, pos->columns, "P");
+    refresh();
     if (num->numberCase == 0)
         return (1);
     return (0);

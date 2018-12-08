@@ -7,7 +7,17 @@
 
 #include "my.h"
 
-char **case_switch(struct position *pos,
+void initiate_varia(struct position *pos, struct number *num,
+char **map_2d, struct length *len)
+{
+    pos->rows = 1;
+    pos->columns = 1;
+    num->numberZero = number_of_answer(map_2d, len, pos);
+    num->numberZeroConst = number_of_answer(map_2d, len, pos);
+    num->numberCase = number_of_cases(map_2d, len);
+}
+
+char **case_switcher(struct position *pos,
 struct number *num, char **map_2d, struct length *len)
 {
     switch(getch()) {
