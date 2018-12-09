@@ -20,7 +20,7 @@ char **map_2d, struct length *len)
 char **case_switcher(struct position *pos,
 struct number *num, char **map_2d, struct length *len)
 {
-    switch(getch()) {
+    switch (getch()) {
         case KEY_LEFT:
             left_main(map_2d, pos, num);
             break;
